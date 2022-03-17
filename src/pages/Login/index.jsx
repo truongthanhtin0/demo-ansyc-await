@@ -14,7 +14,6 @@ function Login(props) {
   const { dataCreate, accountList } = useSelector(
     (state) => state.accountReducer
   );
-  console.log("Log : accountList", accountList);
 
   useEffect(() => {
     dispatch(getListAccount());
@@ -37,7 +36,23 @@ function Login(props) {
   });
 
   const handleSubmitForm = (values) => {
-    console.log("Log : values", values);
+    const findAccount = accountList.find(
+      (item) =>
+        item.userName === values.userName && item.password === values.password
+    );
+    if (findAccount) {
+      console.log("Đăng nhập thành công!");
+      localStorage.setItem(
+        "user",
+        JSON.stringify({
+          fullName: findAccount.fullName,
+          userName: findAccount.userName,
+        })
+      );
+      history.push("/");
+    } else {
+      console.log("Tài khoản hoặc mật khẩu không đúng!");
+    }
   };
 
   return (

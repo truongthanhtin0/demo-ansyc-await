@@ -1,15 +1,20 @@
 import Button from "@mui/material/Button";
 import { Field, Form, Formik } from "formik";
-import React from "react";
-import { useDispatch } from "react-redux";
+import React, { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
 import * as Yup from "yup";
-import { createAccount } from "./../../store/action";
+import { createAccount, getListAccount } from "./../../store/action";
 import "./style.scss";
 
 function Register(props) {
   const history = useHistory();
   const dispatch = useDispatch();
+  const { accountList } = useSelector((state) => state.accountReducer);
+
+  useEffect(() => {
+    dispatch(getListAccount());
+  }, []);
 
   const initialValues = {
     fullName: "",
@@ -38,13 +43,22 @@ function Register(props) {
   });
 
   const handleSubmitForm = (values) => {
-    dispatch(
-      createAccount({
-        fullName: values.fullName,
-        userName: values.userName,
-        password: values.password,
-      })
+    const findAccount = accountList.find(
+      (item) => item.userName === values.userName
     );
+    if (findAccount) {
+      console.log("Tài khoản đã tồn tại!");
+    } else {
+      dispatch(
+        createAccount({
+          fullName: values.fullName,
+          userName: values.userName,
+          password: values.password,
+        })
+      );
+      console.log("Đăng ký thành công!");
+      history.push("/");
+    }
   };
 
   return (

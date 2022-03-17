@@ -5,24 +5,6 @@
       "userName": "admin",
       "password": "12345678",
       "id": 1
-    },
-    {
-      "fullName": "Truong Thanh Tin",
-      "userName": "admin1",
-      "password": "12345678",
-      "id": 2
-    },
-    {
-      "fullName": "Truong Thanh Tin",
-      "userName": "admin2",
-      "password": "12345678",
-      "id": 3
-    },
-    {
-      "fullName": "Truong Thanh Tin",
-      "userName": "admin33",
-      "password": "123456789",
-      "id": 4
     }
   ]
 }

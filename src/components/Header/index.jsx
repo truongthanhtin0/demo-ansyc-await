@@ -8,11 +8,17 @@ import {
   Toolbar,
   Typography,
 } from "@mui/material";
-import React from "react";
+import React, { useState } from "react";
 import { useHistory } from "react-router-dom";
 
 function Header(props) {
   const history = useHistory();
+  const [info, setInfo] = useState(JSON.parse(localStorage.getItem("user")));
+
+  const handleClickLogout = () => {
+    localStorage.removeItem("user");
+    setInfo("");
+  };
 
   return (
     <AppBar position="static">
@@ -23,34 +29,48 @@ function Header(props) {
             noWrap
             component="div"
             sx={{ mr: 2, display: { xs: "none", md: "flex" } }}
+            onClick={() => history.push("/")}
           >
             PROJECT EXAMPLE
           </Typography>
 
           <Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}>
-            <>
-              <Button
-                onClick={() => history.push("/register")}
-                sx={{ my: 2, color: "white", display: "block" }}
-              >
-                Register
-              </Button>
-              <Button
-                onClick={() => history.push("/login")}
-                sx={{ my: 2, color: "white", display: "block" }}
-              >
-                Login
-              </Button>
-            </>
+            {!info && (
+              <>
+                <Button
+                  onClick={() => history.push("/register")}
+                  sx={{ my: 2, color: "white", display: "block" }}
+                >
+                  Register
+                </Button>
+                <Button
+                  onClick={() => history.push("/login")}
+                  sx={{ my: 2, color: "white", display: "block" }}
+                >
+                  Login
+                </Button>
+              </>
+            )}
             <Button
-              onClick={() => history.push("/product-list")}
+              onClick={() => history.push("/profile")}
               sx={{ my: 2, color: "white", display: "block" }}
             >
-              Product
+              Profile
             </Button>
-            <Button sx={{ my: 2, color: "white", display: "block" }}>
-              Logout
+            <Button
+              onClick={() => history.push("/posts")}
+              sx={{ my: 2, color: "white", display: "block" }}
+            >
+              List Post
             </Button>
+            {info && (
+              <Button
+                sx={{ my: 2, color: "white", display: "block" }}
+                onClick={handleClickLogout}
+              >
+                Logout
+              </Button>
+            )}
           </Box>
 
           <Box sx={{ flexGrow: 0 }}>
