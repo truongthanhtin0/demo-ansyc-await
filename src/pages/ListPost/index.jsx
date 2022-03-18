@@ -5,15 +5,12 @@ import ListItem from "@mui/material/ListItem";
 import ListItemText from "@mui/material/ListItemText";
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useHistory } from "react-router-dom";
 import { getListPost } from "../../store/action";
+import history from "../../util/history";
 
 function ListPost(props) {
-  const history = useHistory();
-
   const dispatch = useDispatch();
   const { postList } = useSelector((state) => state.accountReducer);
-  console.log("Log : postList", postList);
 
   useEffect(() => {
     dispatch(getListPost());

@@ -2,14 +2,13 @@ import Button from "@mui/material/Button";
 import { Field, Form, Formik } from "formik";
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useHistory } from "react-router-dom";
 import * as Yup from "yup";
 import { getListAccount } from "../../store/action";
+import history from "../../util/history";
 import "./style.scss";
+import { toastSuccess, toastError } from "./../../util/toast";
 
 function Login(props) {
-  const history = useHistory();
-
   const dispatch = useDispatch();
   const { dataCreate, accountList } = useSelector(
     (state) => state.accountReducer
@@ -41,7 +40,6 @@ function Login(props) {
         item.userName === values.userName && item.password === values.password
     );
     if (findAccount) {
-      console.log("Đăng nhập thành công!");
       localStorage.setItem(
         "user",
         JSON.stringify({
@@ -49,9 +47,10 @@ function Login(props) {
           userName: findAccount.userName,
         })
       );
+      toastSuccess("Đăng nhập thành công!");
       history.push("/");
     } else {
-      console.log("Tài khoản hoặc mật khẩu không đúng!");
+      toastError("Tài khoản hoặc mật khẩu không đúng!");
     }
   };
 

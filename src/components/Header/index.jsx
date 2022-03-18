@@ -9,10 +9,9 @@ import {
   Typography,
 } from "@mui/material";
 import React, { useState } from "react";
-import { useHistory } from "react-router-dom";
+import history from "../../util/history";
 
 function Header(props) {
-  const history = useHistory();
   const [info, setInfo] = useState(JSON.parse(localStorage.getItem("user")));
 
   const handleClickLogout = () => {

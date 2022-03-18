@@ -10,7 +10,6 @@ import { CardActionArea } from "@mui/material";
 function PostDetail({ match }) {
   const dispatch = useDispatch();
   const { postDetail } = useSelector((state) => state.accountReducer);
-  console.log("Log : postDetail", postDetail);
 
   useEffect(() => {
     dispatch(

@@ -1,4 +1,6 @@
 import axios from "axios";
+import { toastError, toastSuccess } from "./../../util/toast";
+import history from "./../../util/history";
 import {
   CREATE_ACCOUNT_FAIL,
   CREATE_ACCOUNT_SUCCESS,
@@ -20,11 +22,14 @@ export const createAccount = (payload) => async (dispatch) => {
       type: CREATE_ACCOUNT_SUCCESS,
       payload: response.data,
     });
+    toastSuccess("Đăng ký thành công!");
+    history.push("/login");
   } catch (error) {
     dispatch({
       type: CREATE_ACCOUNT_FAIL,
       payload: error.message,
     });
+    toastError("Đăng ký thất bại!");
   }
 };
 

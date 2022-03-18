@@ -2,13 +2,14 @@ import Button from "@mui/material/Button";
 import { Field, Form, Formik } from "formik";
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useHistory } from "react-router-dom";
 import * as Yup from "yup";
+import history from "../../util/history";
+import { toastError } from "../../util/toast";
 import { createAccount, getListAccount } from "./../../store/action";
 import "./style.scss";
+import { toastSuccess } from "./../../util/toast";
 
 function Register(props) {
-  const history = useHistory();
   const dispatch = useDispatch();
   const { accountList } = useSelector((state) => state.accountReducer);
 
@@ -47,7 +48,7 @@ function Register(props) {
       (item) => item.userName === values.userName
     );
     if (findAccount) {
-      console.log("Tài khoản đã tồn tại!");
+      toastError("Tài khoản đã tồn tại!");
     } else {
       dispatch(
         createAccount({
@@ -56,8 +57,7 @@ function Register(props) {
           password: values.password,
         })
       );
-      console.log("Đăng ký thành công!");
-      history.push("/");
+      toastSuccess("Đăng ký thành công!");
     }
   };
 
@@ -136,7 +136,7 @@ function Register(props) {
                   Already have an account?{" "}
                   <span
                     className="register__checkbox--color"
-                    onClick={() => history.push("./login")}
+                    onClick={() => history.push("/login")}
                   >
                     Log In
                   </span>
